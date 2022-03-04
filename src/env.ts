@@ -6,6 +6,7 @@ switch (Deno.env.get("MODE")) {
     configSync({ export: true });
     break;
   case "PROD":
+    break;
   default:
     Deno.env.set("MODE", "PROD");
     break;
