@@ -44,6 +44,12 @@ Also I am open source on [github](https://github.com/XMLHexagram/telegram-auto-t
   );
 });
 
+function delay(milliseconds: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+}
+
 bot.command("set_title", async (ctx) => {
   try {
     // 0-16 characters, emoji are not allowed
@@ -78,6 +84,8 @@ bot.command("set_title", async (ctx) => {
         can_invite_users: false,
         can_promote_members: true,
       });
+
+      await delay(1000);
 
       await ctx.setChatAdministratorAuthorCustomTitle(ctx.match);
     } else {
