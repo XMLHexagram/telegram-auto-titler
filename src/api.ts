@@ -8,6 +8,7 @@ router.get("/ping", (ctx) => {
 });
 
 router.post(env.WEBHOOK_URL, async (ctx) => {
+  console.log("get request");
   const handler = webhookCallbackHandler();
   try {
     await handler(ctx);
