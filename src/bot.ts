@@ -1,4 +1,8 @@
-import { Bot, Context } from "https://deno.land/x/grammy/mod.ts";
+import {
+  Bot,
+  Context,
+  webhookCallback,
+} from "https://deno.land/x/grammy/mod.ts";
 import { env } from "./env.ts";
 import { TATError } from "./error.ts";
 
@@ -14,7 +18,26 @@ await bot.api.setMyCommands([
   { command: "check", description: "check missing permissions" },
 ]);
 
-bot.command("help");
+bot.command("help", async (ctx) => {
+  await ctx.reply(
+    `I'm a bot that can auto set title for you.
+I require some permissions to work.
+
+You can send me \`/set_title xxx\` to set your title to \`xxx\`.
+You can send me \`/check\` to check if I have all the required permissions.
+
+Working Principle:
+    1. I promote user a lowest permission admin.
+    2. Set title for user.
+
+Because telegram bot api cannot promote empty permission admin.
+So I will promote user permission to add new admin.
+But don't worry they can only abuse permission by add admin and you can easily remove them.
+
+Also I am open source on [github](https://github.com/XMLHexagram/telegram-auto-titler) and can easily deploy by deno.deploy.
+`
+  );
+});
 
 bot.command("set_title", async (ctx) => {
   try {
@@ -51,8 +74,6 @@ bot.command("set_title", async (ctx) => {
         can_promote_members: true,
       });
 
-      console.log(ctx);
-
       await ctx.setChatAdministratorAuthorCustomTitle(ctx.match);
     } else {
       // is admin
@@ -65,8 +86,6 @@ bot.command("set_title", async (ctx) => {
           }
           break;
         case "administrator":
-          console.log(ctx);
-
           if (env.MODE === "TEST") {
             ctx.reply(`TEST: admin.can_be_edited: ${admin.can_be_edited}`);
           }
@@ -104,10 +123,6 @@ bot.command("check", async (ctx) => {
   }
 });
 
-bot.start().finally(() => {
-  console.log("bot ended");
-});
-
 async function check(ctx: Context) {
   const chatAdminMembers = await ctx.getChatAdministrators();
   // guard I am admin
@@ -142,4 +157,18 @@ async function check(ctx: Context) {
       `missing these permissions: ${missingPermission.join(", ")}`
     );
   }
+}
+
+switch (env.MODE) {
+  case "TEST":
+    bot.start().finally(() => {
+      console.log("bot ended");
+    });
+    break;
+  default:
+    break;
+}
+
+export function webhookCallbackHandler() {
+  return webhookCallback(bot, "oak");
 }

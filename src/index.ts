@@ -1,1 +1,2 @@
-import "./bot.ts"
+import "./bot.ts";
+import "./api.ts";

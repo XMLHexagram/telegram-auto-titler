@@ -7,10 +7,11 @@ switch (Deno.env.get("MODE")) {
   case "PROD":
   default:
     Deno.env.set("MODE", "PROD");
+    Deno.env.set("WEBHOOK_URL", "/test");
     break;
 }
 
-const TATEnv = ["BOT_TOKEN", "MODE"] as const;
+const TATEnv = ["BOT_TOKEN", "MODE", "WEBHOOK_URL"] as const;
 
 type TATEnvType = typeof TATEnv[number];
 
