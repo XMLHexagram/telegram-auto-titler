@@ -26,6 +26,11 @@ I require some permissions to work.
 You can send me \`/set_title xxx\` to set your title to \`xxx\`.
 You can send me \`/check\` to check if I have all the required permissions.
 
+LIMIT:
+
+This bot only works well in small group, less than 50 people.
+This is because telegram group admin number limit is 50.
+
 Working Principle:
     1. I promote user a lowest permission admin.
     2. Set title for user.
