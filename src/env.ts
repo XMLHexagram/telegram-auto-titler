@@ -2,12 +2,12 @@ import { configSync } from "https://deno.land/std@0.127.0/dotenv/mod.ts";
 
 switch (Deno.env.get("MODE")) {
   case "TEST":
+    Deno.env.set("WEBHOOK_URL", "/test");
     configSync({ export: true });
     break;
   case "PROD":
   default:
     Deno.env.set("MODE", "PROD");
-    Deno.env.set("WEBHOOK_URL", "/test");
     break;
 }
 

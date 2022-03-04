@@ -31,10 +31,10 @@ Working Principle:
     2. Set title for user.
 
 Because telegram bot api cannot promote empty permission admin.
-So I will promote user permission to add new admin.
+So I will promote add new admin permission to user.
 But don't worry they can only abuse permission by add admin and you can easily remove them.
 
-Also I am open source on [github](https://github.com/XMLHexagram/telegram-auto-titler) and can easily deploy by deno.deploy.
+Also I am open source on [github](https://github.com/XMLHexagram/telegram-auto-titler) and can easily deploy by using deno.deploy.
 `
   );
 });
