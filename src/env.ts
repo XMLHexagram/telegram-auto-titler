@@ -8,7 +8,8 @@ switch (Deno.env.get("MODE")) {
   case "PROD":
     break;
   default:
-    Deno.env.set("MODE", "PROD");
+    console.error("missing mode");
+    Deno.exit(1);
     break;
 }
 
